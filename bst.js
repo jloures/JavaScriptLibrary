@@ -19,6 +19,8 @@ class BST {
                 }
             }
         };
+
+        addHelper(this.root,node);
     }
 
     isBalanced(root) {
@@ -66,5 +68,37 @@ class BST {
         };
 
         return helper(root,null,null);
+    }
+
+    inOrderSuccessor(root) {
+        let getLeftMost = root => {
+            if( root === null ) {
+                return null;
+            }
+
+            let curr = root;
+            while(curr.left !== null) {
+                curr = curr.left;
+            }
+
+            return curr;
+
+        }
+
+        if( root === null ) {
+            return null;
+        }
+
+        if( root.right !== null ) {
+            return getLeftMost(root.right);
+        }
+
+        let parent = root.parent;
+        while( parent !== null && parent.left !== root ) {
+            parent = parent.parent;
+            root = root.parent;
+        }
+
+        return parent;
     }
 }
